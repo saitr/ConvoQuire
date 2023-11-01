@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required 
+@login_required(login_url='/signin/')
 
 def home(request):
     if request.method == 'POST':
@@ -32,18 +34,19 @@ def home(request):
 
 
 
-
+@login_required(login_url='/signin/')
 def all_posts(request):
-   
     all_posts = Post.objects.all()
     return render(request,'all_posts.html',{'all_posts':all_posts})
+
+@login_required(login_url='/signin/')
 
 def post_detail(request, post_id):
     post = Post.objects.get(pk=post_id)
     comments = Comment.objects.filter(post=post)
     return render(request, 'all_posts.html', {'post': post, 'comments': comments})
 
-
+@login_required(login_url='/signin/')   
 def add_comment(request, post_id):
     post = Post.objects.get(pk=post_id)
 
@@ -62,6 +65,7 @@ def add_comment(request, post_id):
 
 
 @csrf_exempt
+@login_required(login_url='/signin/')
 @require_POST
 def like_post(request,post_id):
     post_id = request.POST.get('post_id')
