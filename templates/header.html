@@ -1,0 +1,50 @@
+
+{% extends 'layout.html' %}
+
+{% block content %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <h2 style="color: #0d6efd;">ConvoQuire</h2>
+        </a>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="" style="color: #0d6efd;" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <a class="nav-link" href="{% url 'home' %}">
+                    {% if request.resolver_match.url_name == 'home' %}
+                        <a href="{% url 'all_posts' %}" style="text-decoration:none; color: #0d6efd;">All Posts</a>
+                    {% else %}
+                        <a href="{% url 'home' %}" style="text-decoration: none;">My Page</a>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to logout?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

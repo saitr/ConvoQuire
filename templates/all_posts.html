@@ -1,28 +1,73 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+{%include 'header.html' %}
+
 <div class="container mt-4">
-    <h2 class="text-center">Posts</h2>
+    <h2 class="text-center mb-4" style="font-size: 2rem; color: #3498db;">All Posts</h2>
     <ul class="list-group">
         {% for post in all_posts %}
-            <li class="list-group-item m-3" >
-                <div class="d-flex align-items-start">
-                    <!-- <div class="flex-shrink-0">
-                        <img src="{{ post.user.profile_picture.url }}" alt="{{ post.user.username }}" class="rounded-circle" width="40">
-                    </div> -->
+            <li class="list-group-item m-3 p-3" style="border: 2px solid #3498db; border-radius: 20px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+                <div class="d-flex align-items-start flex-wrap">
                     <div class="flex-grow-1 ms-3">
-                        <h5 class="mb-2">{{ post.user.username }}</h5>
-                        <h6 class="mb-2">{{ post.heading }}</h6>
-                        <p class="mb-2">{{ post.description }}</p>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted">Likes: {{ post.likes }}</span>
+                        <h5 class="mb-2" style="font-weight: bold; font-size: 1.2rem; color: #333;">UserName: {{ post.user.username }}</h5>
+                        <h6 class="mb-2" style="font-weight: bold; font-size: 1.1rem; color: #3498db;">{{ post.heading }}</h6>
+                        <p class="mb-2" style="font-size: 1rem; color: #666;">{{ post.description }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="like-button" data-post-id="{{ post.id }}" data-like-url="{% url 'like_post' post.id %}" style="background-color: transparent; border: none; cursor: pointer; font-size: 2rem; color: red;">💙</button>
+                                <span class="text-muted" style="font-size: 0.9rem;">Likes: <span class="like-count" style="font-weight: bold;">{{ post.likes }}</span></span>
+                            </div>
+                            <input type="hidden" id="like-status-{{ post.id }}" value="{{ post.liked }}">
+                            
+                            <a href="#commentModal{{ post.id }}" data-bs-toggle="modal" style="font-size: 1rem; color: #3498db;">Add Comment</a>
+                            <span style="font-size: 0.9rem; color: #666;">Comments: {{ post.comment_set.count }}</span>
                         </div>
                     </div>
                 </div>
             </li>
+
+            \
+            <div class="modal fade" id="commentModal{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel{{ post.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="border-radius: 20px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
+                        <div class="modal-header" style="background-color: #3498db; color: #fff; border-radius: 20px 20px 0 0;">
+                            <h5 class="modal-title" id="commentModalLabel{{ post.id }}">Add a Comment</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #d9534f; border: 1px solid #d43f3a; padding: 6px 10px; color: #fff; border-radius: 50%;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="{% url 'add_comment' post.id %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <textarea name="comment" class="form-control" rows="3" placeholder="Add your comment" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+                            </form>
+
+                            <!-- Comments Section within Modal -->
+                            <ul class="list-group">
+                                {% for comment in post.comment_set.all %}
+                                    <li class="list-group-item m-2">
+                                        <strong>UserName: {{ comment.user.username }}</strong><br>
+                                        {{ comment.comment }}
+                                    </li>
+                                {% empty %}
+                                    <li class="list-group-item m-2">No comments yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="modal-footer" style="border-radius: 0 0 20px 20px;">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% empty %}
             <li class="list-group-item">No posts found.</li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}
