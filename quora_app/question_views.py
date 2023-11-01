@@ -65,17 +65,9 @@ def add_comment(request, post_id):
 @require_POST
 def like_post(request,post_id):
     post_id = request.POST.get('post_id')
-
-    # Retrieve the post based on the post_id
     post = Post.objects.get(pk=post_id)
-
-    # Increment the like count for the post
     post.likes += 1
-
-    # Save the changes to the post
     post.save()
-
-    # Return a JSON response with the new like count
     response_data = {
         'like_count': post.likes,
     }

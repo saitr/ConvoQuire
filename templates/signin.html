@@ -10,7 +10,7 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Log In</h2>
 
-                            <form method="POST">
+                            <form method="POST" class="registerForm" id="registerForm">
                                 {% csrf_token %}
 
                                 
@@ -29,7 +29,8 @@
                                     {{ form.password }}
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-dark btn-block btn-lg gradient-custom-4 text-light">SignIn</button>
+                                    <button type="submit" class="btn btn-dark btn-block btn-lg gradient-custom-4 text-light" id="submitButton">SignIn</button>
+
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0">Dont have an account? <a href="{% url 'signup' %}" class="fw-bold text-body"><u>Sign Up</u></a></p>
@@ -41,5 +42,24 @@
             </div>
         </div>
     </div>
+    <div id="loaderOverlay" class="overlay" style="display: none;">
+        <div id="loader" class="text-center d-flex flex-column justify-content-center align-items-center">
+            <div class="loader"></div> <!-- Replace the image with a loader element -->
+            <div class="mt-2">Loading...</div>
+        </div>
+    </div>
+    
 </section>
+<script>
+    const registerForm = document.getElementById('registerForm');
+    const loaderOverlay = document.getElementById('loaderOverlay');
+    const submitButton = document.getElementById('submitButton');
+
+    registerForm.addEventListener('submit', function() {
+        // Hide the submit button and show the loader
+        submitButton.style.display = 'none';
+        loaderOverlay.style.display = 'block';
+    });
+</script>
+
 {% endblock %}
