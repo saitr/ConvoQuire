@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*','.vercel.app', '.now.sh']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -88,12 +88,12 @@ WSGI_APPLICATION = 'ConvoQuire.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quora',
-        'USER': 'root',
-        'PASSWORD': 'Sai481309@',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'verceldb',
+        'USER': 'default',
+        'PASSWORD': 'Mg4vAykz7BCO',
+        'HOST': 'ep-broken-heart-20793321-pooler.us-east-1.postgres.vercel-storage.com',
+        'PORT': '5432',
     }
 }
 
