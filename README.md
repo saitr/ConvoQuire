@@ -18,9 +18,9 @@ ConvoQuire is a simple web application for sharing posts and engaging in discuss
 
 ## Usage
 
-- Visit the deployed application: [ConvoQuire](https://convo-quire-git-main-saitrs-projects.vercel.app/all_posts/)
+- <b>Visit the deployed application</b>: [ConvoQuire](https://convo-quire-git-main-saitrs-projects.vercel.app/all_posts/)
 
-- To run the application using Docker:
+- <b>To run the application using Docker</b>:
 
     1. Pull the Docker image:
 
@@ -29,20 +29,20 @@ ConvoQuire is a simple web application for sharing posts and engaging in discuss
         ```
 
     2. Run the Docker container:
-
         ```bash
         docker run -p 8000:8000 saitreddy/convoquire:r_v1
         ```
-    3. Run the Docker Container in detached mode :
-      ```bash
-        docker run -d -p 8000:8000 saitreddy/convoquire:r_v1
-      ```
+    3. Run the Docker container in detatched mode:
 
+        ```bash
+        docker run -d -p 8000:8000 saitreddy/convoquire:r_v1
+        ```
+  
     4. Access the application in your browser: `http://127.0.0.1:8000/`
 
 
 
-- To run the application locally, follow these steps:
+- <b>To run the application locally, follow these steps</b>:
 
     1. Clone the repository:
 
