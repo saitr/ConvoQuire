@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Posts</h2>
+    <ul class="list-group">
+        {% for post in all_posts %}
+            <li class="list-group-item m-3" >
+                <div class="d-flex align-items-start">
+                    <!-- <div class="flex-shrink-0">
+                        <img src="{{ post.user.profile_picture.url }}" alt="{{ post.user.username }}" class="rounded-circle" width="40">
+                    </div> -->
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="mb-2">{{ post.user.username }}</h5>
+                        <h6 class="mb-2">{{ post.heading }}</h6>
+                        <p class="mb-2">{{ post.description }}</p>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Likes: {{ post.likes }}</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No posts found.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
